@@ -619,8 +619,50 @@
       line-height: 1.45;
     }
 
-    .tier-wrap {
+    .deal-collapsed {
       margin-top: 20px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      border: 2px solid rgba(231, 76, 60, 0.4);
+    }
+
+    .deal-collapsed img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.72);
+    }
+
+    .deal-collapsed-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(180deg, transparent 30%, rgba(16, 32, 51, 0.82));
+      padding: 20px;
+      text-align: center;
+    }
+
+    .deal-collapsed-title {
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.04em;
+      line-height: .92;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .deal-collapsed-sub {
+      color: rgba(255,255,255,0.82);
+      font-size: 1rem;
+      font-weight: 600;
+    }
       padding: 18px;
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
@@ -861,6 +903,129 @@
       font-size: .9rem;
     }
 
+    .carousel {
+      display: grid;
+      gap: 8px;
+    }
+
+    .carousel-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #dbe7ff, #f7d8c8);
+      box-shadow: 0 10px 24px rgba(16, 32, 51, 0.12);
+    }
+
+    .carousel-slide {
+      display: none;
+      width: 100%;
+    }
+
+    .carousel-slide.active {
+      display: block;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .carousel-btn {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      font-size: 1.3rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 32, 51, 0.18);
+      pointer-events: all;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-btn:hover { background: #fff; }
+
+    .carousel-btn:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    .carousel-counter {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16, 32, 51, 0.7);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .carousel-counter {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(16, 32, 51, 0.72);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .intro-photo {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .intro-photo h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+
+    .intro-photo .photo {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .intro-caption {
+      margin: 12px auto 0;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: .98rem;
+      line-height: 1.6;
+      text-align: center;
+      font-style: italic;
+    }
+
     .activity-list {
       margin: 0;
       padding: 0;
@@ -919,6 +1084,7 @@
       .day-body { padding: 0 18px 18px; }
       .day summary { padding: 18px; }
       .day-title h3 { font-size: 1.35rem; }
+      .intro-photo { padding: 18px; }
     }
 
     @media (max-width: 719px) {
@@ -942,6 +1108,7 @@
           <a href="#viaje">Viaje</a>
           <a href="#ciudades">Ciudades</a>
           <a href="#dias">Días</a>
+          <a href="#deal-collapsed">Final</a>
           <a href="#notas">Notas</a>
         </nav>
       </div>
@@ -1108,6 +1275,14 @@
         </div>
       </div>
 
+      <div class="intro-photo">
+        <h2>Her we go</h2>
+        <figure class="photo">
+          <img src="images/her_we_go.jpeg" alt="Her we go, foto de inicio del viaje" loading="lazy" />
+        </figure>
+        <p class="intro-caption">Parecía que el viaje iba por cui, pero se fue por cua.</p>
+      </div>
+
       <div class="controls" aria-label="Accesos rápidos">
         <a class="control" href="#dia-1">Día 1</a>
         <a class="control" href="#dia-4">Día 4</a>
@@ -1133,8 +1308,19 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 1 en Bogotá" loading="lazy" />
-                <figcaption>Placeholder para las fotos de llegada y primera noche.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active">
+                      <img src="images/bogota_arrival.jpeg" alt="Llegada a Bogotá, Día 1" loading="lazy" />
+                    </div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["Llegada a Bogotá."]'>Llegada a Bogotá.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Llegada a Bogotá por la tarde ✈️</span></li>
@@ -1144,7 +1330,7 @@
           </div>
         </details>
 
-        <details class="day" id="dia-2">
+        <details class="day" id="dia-2" open>
           <summary>
             <div class="day-head">
               <div class="day-title">
@@ -1162,8 +1348,22 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 2 en Bogotá" loading="lazy" />
-                <figcaption>Placeholder para fotos del paseo por Bogotá.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active">
+                      <img src="images/bicis_bogota.jpeg" alt="Excursión en bicicleta por Bogotá, Día 2" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                      <img src="images/tour_bogota.jpeg" alt="Tour por la ciudad de Bogotá, Día 2" loading="lazy" />
+                    </div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 2</div>
+                  </div>
+                  <figcaption data-captions='["Excursión en bicicleta por Bogotá.", "Tour por la ciudad de Bogotá."]'>Excursión en bicicleta por Bogotá.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Paseo en bicicleta 🚲</span></li>
@@ -1176,7 +1376,7 @@
           </div>
         </details>
 
-        <details class="day" id="dia-3">
+        <details class="day" id="dia-3" open>
           <summary>
             <div class="day-head">
               <div class="day-title">
@@ -1194,8 +1394,19 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 3 entre Bogotá y Armenia" loading="lazy" />
-                <figcaption>Placeholder para fotos de Monserrate, viaje y noche en Armenia.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active">
+                      <img src="images/montserrate.jpeg" alt="Visita al cerro de Monserrate, Día 3" loading="lazy" />
+                    </div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["Visita al cerro de Monserrate."]'>Visita al cerro de Monserrate.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Visita a Monserrate ⛰️</span></li>
@@ -1227,8 +1438,19 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 4 en Valle del Cocora y Salento" loading="lazy" />
-                <figcaption>Placeholder para fotos de palmeras, pueblo y noche con aguardiente.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active"><img src="images/cocora.jpeg" alt="Valle del Cocora, Día 4" loading="lazy" /></div>
+                    <div class="carousel-slide"><img src="images/cocora_fifa.jpeg" alt="Vistas en Cocora, Día 4" loading="lazy" /></div>
+                    <div class="carousel-slide"><img src="images/cocora_buggy.jpeg" alt="Buggy en Cocora con bandera colombiana, Día 4" loading="lazy" /></div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 3</div>
+                  </div>
+                  <figcaption data-captions='["Tour por Salento y Valle del Cocora.", "Vistas desde el mirador de Cocora.", "Buggy con bandera colombiana en Cocora."]'>Tour por Salento y Valle del Cocora.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Tour Valle del Cocora con Jorge 🌴</span></li>
@@ -1288,8 +1510,17 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 6 en Medellín" loading="lazy" />
-                <figcaption>Placeholder para fotos del centro y de la noche en Medellín.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active"><img src="images/ll.jpeg" alt="Noche en Medellín, Día 6" loading="lazy" /></div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["mbt"]'>mbt</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Falsa alarma Guatapé ⏰</span></li>
@@ -1317,8 +1548,17 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 7 en Guatapé" loading="lazy" />
-                <figcaption>Placeholder para fotos del pueblo, la piedra y la noche.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active"><img src="images/guatape.jpeg" alt="Excursión a Guatapé, Día 7" loading="lazy" /></div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["Excursión a Guatapé."]'>Excursión a Guatapé.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Guatapé ⛰️</span></li>
@@ -1405,8 +1645,17 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 10 en Islas del Rosario" loading="lazy" />
-                <figcaption>Placeholder para fotos de mar, barco y última cena en Cartagena.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active"><img src="images/mafia.jpeg" alt="Isla mafiosa, Día 10" loading="lazy" /></div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["isla mafiosa"]'>isla mafiosa</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Tour Islas del Rosario 🚤</span></li>
@@ -1434,8 +1683,11 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 11 en San Andrés" loading="lazy" />
-                <figcaption>Placeholder para fotos del vuelo, el paseo y la cena.</figcaption>
+                <video controls playsinline preload="metadata" style="width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--line);display:block;">
+                  <source src="images/samba.mp4" type="video/mp4" />
+                  Tu navegador no soporta vídeo HTML5.
+                </video>
+                <figcaption>San Andrés 🎶</figcaption>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Vuelo a San Andrés ✈️</span></li>
@@ -1465,8 +1717,17 @@
           <div class="day-body">
             <div class="content-grid">
               <figure class="photo">
-                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 12 en Providencia" loading="lazy" />
-                <figcaption>Placeholder para fotos de Providencia y la ruta por la isla.</figcaption>
+                <div class="carousel" data-carousel>
+                  <div class="carousel-frame">
+                    <div class="carousel-slide active"><img src="images/buggy.jpeg" alt="Buggy en Providencia, Día 12" loading="lazy" /></div>
+                    <div class="carousel-controls">
+                      <button class="carousel-btn" type="button" data-prev aria-label="Imagen anterior">&#8249;</button>
+                      <button class="carousel-btn" type="button" data-next aria-label="Imagen siguiente">&#8250;</button>
+                    </div>
+                    <div class="carousel-counter">1 / 1</div>
+                  </div>
+                  <figcaption data-captions='["Buggy por la isla de Providencia."]'>Buggy por la isla de Providencia.</figcaption>
+                </div>
               </figure>
               <ul class="activity-list">
                 <li><span class="bullet">1</span><span>Llegada a Providencia 🛬</span></li>
@@ -1479,6 +1740,14 @@
       </div>
     </section>
 
+    <div class="intro-photo">
+      <h2>Deal Collapsed</h2>
+      <figure class="photo">
+        <img src="images/last_dance.jpeg" alt="Last dance, fin del viaje" loading="lazy" />
+      </figure>
+      <p class="intro-caption">The last dance.</p>
+    </div>
+
     <section class="section" id="tier-de-panchos">
       <div class="section-header">
         <div>
@@ -1489,8 +1758,6 @@
 
       <div class="tier-wrap">
         <div class="tier-header">
-          <strong>Memómetro oficial del viaje</strong>
-          <span>Drag and drop habilitado</span>
         </div>
         <div class="tier-pills" aria-label="Niveles de tier list">
           <span class="tier-pill">Tier 1</span>
@@ -1614,6 +1881,33 @@
         });
       });
     }
+
+    document.querySelectorAll('[data-carousel]').forEach(function(carousel) {
+      const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+      const counter = carousel.querySelector('.carousel-counter');
+      const figcaption = carousel.querySelector('figcaption');
+      const captions = JSON.parse(figcaption.dataset.captions || '[]');
+      const prevBtn = carousel.querySelector('[data-prev]');
+      const nextBtn = carousel.querySelector('[data-next]');
+      let idx = 0;
+
+      function show(n) {
+        slides[idx].classList.remove('active');
+        idx = (n + slides.length) % slides.length;
+        slides[idx].classList.add('active');
+        if (counter) counter.textContent = (idx + 1) + ' / ' + slides.length;
+        if (figcaption && captions[idx]) figcaption.textContent = captions[idx];
+        prevBtn.disabled = slides.length < 2;
+        nextBtn.disabled = slides.length < 2;
+      }
+
+      prevBtn.addEventListener('click', function(e) { e.stopPropagation(); show(idx - 1); });
+      nextBtn.addEventListener('click', function(e) { e.stopPropagation(); show(idx + 1); });
+
+      prevBtn.disabled = slides.length < 2;
+      nextBtn.disabled = slides.length < 2;
+      if (counter) counter.textContent = '1 / ' + slides.length;
+    });
   </script>
 </body>
 </html>
