@@ -1,0 +1,26 @@
+colombia/index.html
+  s_b38732de5f5a19::t_af5be5e4e03a74 1417,1458,1489,1528,1565,1595,1625,1662,1696
+  s_b38732de5f5a19::t_ff299c3aafe651 1294-1298,1300-1305,1329,1331-1335,1337-1343,1373,1375-1379,1381-1387,1415
+  h_8a685f2f1109f7 1651,1684
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "24e490e82c450f0786189b32004bba909bfe2077",
+  "prompts": {},
+  "humans": {
+    "h_8a685f2f1109f7": {
+      "author": "MarcCanizares <marc.canizares@glovoapp.com>"
+    }
+  },
+  "sessions": {
+    "s_b38732de5f5a19": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_02438d23fffeEunwpt4qXpx7nv",
+        "model": "gpt-5.4-mini"
+      },
+      "human_author": "MarcCanizares <marc.canizares@glovoapp.com>"
+    }
+  }
+}
