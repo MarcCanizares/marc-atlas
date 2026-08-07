@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Diario de viaje interactivo del viaje a Colombia de Marc, Aleix y Alejandro." />
+  <title>Viaje a Colombia 🇨🇴</title>
+  <style>
+    :root {
+      --bg: #f6f0dd;
+      --surface: rgba(255, 252, 247, 0.94);
+      --surface-2: rgba(255, 255, 255, 0.72);
+      --text: #102033;
+      --muted: rgba(16, 32, 51, 0.7);
+      --line: rgba(16, 32, 51, 0.12);
+      --accent: #2f6fed;
+      --accent-2: #ff8a5b;
+      --success: #1f9d66;
+      --col-yellow: #f7c948;
+      --col-blue: #2f6fed;
+      --col-red: #e74c3c;
+      --col-green: #1f9d66;
+      --shadow: 0 18px 50px rgba(16, 32, 51, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(247, 201, 72, 0.22), transparent 20%),
+        radial-gradient(circle at top right, rgba(47, 111, 237, 0.18), transparent 22%),
+        radial-gradient(circle at 20% 85%, rgba(31, 157, 102, 0.16), transparent 26%),
+        linear-gradient(180deg, #fff8d9 0%, #f8f0d8 36%, #ecf4ff 36%, #ecf4ff 47%, #f6efe6 47%, #f6efe6 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .page {
+      width: min(calc(100% - 24px), var(--max));
+      margin: 0 auto;
+      padding: 16px 0 40px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 239, 231, 0.78);
+      border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+      margin: 0 -12px 18px;
+      padding: 10px 12px;
+      box-shadow: inset 0 4px 0 0 var(--col-yellow), inset 0 8px 0 0 var(--col-blue), inset 0 12px 0 0 var(--col-red);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--col-yellow) 0 34%, var(--col-blue) 34% 67%, var(--col-red) 67% 100%);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: .92rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(18, 30, 51, 0.94), rgba(18, 30, 51, 0.82)),
+        radial-gradient(circle at top right, rgba(247, 201, 72, 0.32), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(31, 157, 102, 0.22), transparent 26%),
+        radial-gradient(circle at 80% 78%, rgba(231, 76, 60, 0.18), transparent 22%);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.8), transparent 90%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -10% -8%;
+      height: 180px;
+      background:
+        radial-gradient(circle at 12% 100%, rgba(31, 157, 102, 0.95) 0 36px, transparent 38px),
+        radial-gradient(circle at 26% 100%, rgba(47, 111, 237, 0.95) 0 58px, transparent 60px),
+        radial-gradient(circle at 46% 100%, rgba(247, 201, 72, 0.95) 0 72px, transparent 74px),
+        radial-gradient(circle at 68% 100%, rgba(231, 76, 60, 0.9) 0 54px, transparent 56px),
+        radial-gradient(circle at 88% 100%, rgba(31, 157, 102, 0.8) 0 40px, transparent 42px);
+      opacity: 0.45;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 22px;
+      padding: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(247, 201, 72, 0.22), rgba(47, 111, 237, 0.18), rgba(231, 76, 60, 0.2));
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: .82rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 5.2rem);
+      line-height: .92;
+      letter-spacing: -.05em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: rgba(255,255,255,0.84);
+      line-height: 1.7;
+      max-width: 62ch;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-weight: 600;
+      color: rgba(255,255,255,0.94);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: #fff; color: var(--text); }
+    .btn-secondary { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.14); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span { color: rgba(255,255,255,0.78); font-size: .92rem; }
+
+    .section {
+      padding-top: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 24px 0 14px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.4rem);
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.6;
+    }
+
+    .cities {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cities::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(247, 201, 72, 0.16), transparent 20%),
+        radial-gradient(circle at 90% 10%, rgba(47, 111, 237, 0.14), transparent 20%),
+        radial-gradient(circle at 82% 92%, rgba(31, 157, 102, 0.12), transparent 20%);
+      pointer-events: none;
+    }
+
+    .cities > * { position: relative; z-index: 1; }
+
+    .cities-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .route-map {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at top right, rgba(247, 201, 72, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(31, 157, 102, 0.12), transparent 26%),
+        linear-gradient(180deg, rgba(16, 32, 51, 0.04), rgba(16, 32, 51, 0.02));
+      border: 1px solid rgba(16, 32, 51, 0.08);
+    }
+
+    .route-map h3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+    }
+
+    .route-line {
+      display: grid;
+      gap: 12px;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .route-line::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--success), var(--accent-2));
+      border-radius: 999px;
+    }
+
+    .stop {
+      position: relative;
+      display: grid;
+      gap: 3px;
+      padding-left: 6px;
+    }
+
+    .stop::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--col-yellow);
+      box-shadow: 0 0 0 5px rgba(247, 201, 72, 0.12);
+    }
+
+    .stop strong { display: block; }
+
+    .stop span {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.4;
+    }
+
+    .city-cards {
+      display: grid;
+      gap: 12px;
+    }
+
+    .city-card {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.82));
+      border: 1px solid var(--line);
+    }
+
+    .city-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .city-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: .95rem;
+    }
+
+    .journey-map {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journey-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(247, 201, 72, 0.18), transparent 18%),
+        radial-gradient(circle at 88% 12%, rgba(47, 111, 237, 0.14), transparent 18%),
+        radial-gradient(circle at 60% 88%, rgba(31, 157, 102, 0.14), transparent 20%);
+      pointer-events: none;
+    }
+
+    .journey-map > * { position: relative; z-index: 1; }
+
+    .journey-map-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .journey-visual {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background:
+        linear-gradient(180deg, rgba(16, 32, 51, 0.03), rgba(16, 32, 51, 0.01)),
+        linear-gradient(135deg, rgba(247, 201, 72, 0.14), rgba(47, 111, 237, 0.08), rgba(31, 157, 102, 0.08));
+    }
+
+    .journey-skip {
+      display: grid;
+      gap: 14px;
+    }
+
+    .journey-step {
+      display: grid;
+      gap: 4px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      position: relative;
+      margin-left: 18px;
+    }
+
+    .journey-step::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--col-yellow), var(--col-blue), var(--col-red));
+      box-shadow: 0 0 0 5px rgba(247, 201, 72, 0.12);
+    }
+
+    .journey-step strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .journey-step span {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.45;
+    }
+
+    .route-connector {
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--col-yellow), var(--col-blue), var(--col-green), var(--col-red));
+      margin: 14px 0;
+    }
+
+    .journey-summary {
+      display: grid;
+      gap: 12px;
+    }
+
+    .journey-summary-card {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--line);
+    }
+
+    .journey-summary-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .journey-summary-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: .95rem;
+    }
+
+    .map-panel {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(247, 201, 72, 0.16), transparent 18%),
+        radial-gradient(circle at 90% 12%, rgba(47, 111, 237, 0.12), transparent 18%),
+        radial-gradient(circle at 70% 90%, rgba(31, 157, 102, 0.12), transparent 18%);
+      pointer-events: none;
+    }
+
+    .map-panel > * { position: relative; z-index: 1; }
+
+    .map-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .map-figure {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background:
+        linear-gradient(180deg, rgba(16, 32, 51, 0.03), rgba(16, 32, 51, 0.01)),
+        linear-gradient(135deg, rgba(247, 201, 72, 0.12), rgba(47, 111, 237, 0.08), rgba(31, 157, 102, 0.08));
+    }
+
+    .map-figure h3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+    }
+
+    .colombia-map {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-image {
+      width: 100%;
+      display: block;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(16, 32, 51, 0.1);
+      box-shadow: 0 14px 30px rgba(16, 32, 51, 0.12);
+      background: #0f172a;
+    }
+
+    .map-path {
+      stroke: var(--text);
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 7 7;
+      opacity: 0.9;
+    }
+
+    .map-point {
+      stroke: #fff;
+      stroke-width: 4;
+    }
+
+    .map-point-label {
+      font-size: 11px;
+      fill: var(--text);
+      font-weight: 700;
+    }
+
+    .map-point-dates {
+      font-size: 9px;
+      fill: var(--muted);
+    }
+
+    .map-legend {
+      display: grid;
+      gap: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--line);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 5px rgba(247, 201, 72, 0.12);
+    }
+
+    .legend-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: .98rem;
+    }
+
+    .legend-item span {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.45;
+    }
+
+    .tier-wrap {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tier-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(247, 201, 72, 0.16), transparent 18%),
+        radial-gradient(circle at 88% 20%, rgba(47, 111, 237, 0.12), transparent 18%),
+        radial-gradient(circle at 65% 92%, rgba(231, 76, 60, 0.08), transparent 18%);
+      pointer-events: none;
+    }
+
+    .tier-wrap > * { position: relative; z-index: 1; }
+
+    .tier-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tier-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .tier-header strong {
+      font-size: 1rem;
+    }
+
+    .tier-header span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .tier-item {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 12px;
+      align-items: stretch;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background: rgba(255,255,255,0.9);
+      cursor: grab;
+    }
+
+    .tier-item:active { cursor: grabbing; }
+
+    .tier-item.dragging { opacity: .55; transform: scale(.99); }
+
+    .tier-rank {
+      display: grid;
+      place-items: center;
+      padding: 14px 10px;
+      font-weight: 900;
+      color: #102033;
+      text-align: center;
+      line-height: 1.15;
+      letter-spacing: .01em;
+    }
+
+    .tier-content {
+      padding: 14px 14px 14px 0;
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      font-weight: 700;
+    }
+
+    .tier-item.t-top .tier-rank { background: linear-gradient(90deg, #ffdf6e, #ffd24d); }
+    .tier-item.t-bacano .tier-rank { background: linear-gradient(90deg, #8de0b8, #1f9d66); color: #fff; }
+    .tier-item.t-raro .tier-rank { background: linear-gradient(90deg, #9ec2ff, #2f6fed); color: #fff; }
+    .tier-item.t-uff .tier-rank { background: linear-gradient(90deg, #ff9c8b, #e74c3c); color: #fff; }
+    .tier-item.t-ruido .tier-rank { background: linear-gradient(90deg, rgba(16, 32, 51, 0.12), rgba(16, 32, 51, 0.06)); }
+
+    .tier-dropzone {
+      height: 12px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .tier-dropzone.active {
+      background: linear-gradient(90deg, rgba(247, 201, 72, 0.2), rgba(47, 111, 237, 0.14), rgba(31, 157, 102, 0.14));
+    }
+
+    .tier-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .94rem;
+      line-height: 1.6;
+    }
+
+    .tier-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tier-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(16, 32, 51, 0.05);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 18px;
+    }
+
+    .control {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .day {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .day summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .day summary::-webkit-details-marker { display: none; }
+
+    .day-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .day-title {
+      display: grid;
+      gap: 6px;
+    }
+
+    .day-title h3 {
+      margin: 0;
+      font-size: 1.22rem;
+      line-height: 1.1;
+    }
+
+    .day-meta {
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .day-badge {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(247, 201, 72, 0.16), rgba(47, 111, 237, 0.14), rgba(231, 76, 60, 0.14));
+      color: var(--text);
+      font-weight: 800;
+      font-size: .88rem;
+    }
+
+    .day-body {
+      display: grid;
+      gap: 16px;
+      padding: 0 16px 16px;
+    }
+
+    .day-open {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: -2px;
+    }
+
+    .mini-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(247, 201, 72, 0.16);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .88rem;
+    }
+
+    .content-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .photo {
+      display: grid;
+      gap: 8px;
+    }
+
+    .photo img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #dbe7ff, #f7d8c8);
+    }
+
+    .photo figcaption {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .activity-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .activity-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(16, 32, 51, 0.04);
+      border: 1px solid rgba(16, 32, 51, 0.06);
+      line-height: 1.5;
+    }
+
+    .bullet {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, rgba(247, 201, 72, 0.2), rgba(47, 111, 237, 0.18));
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: .94rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .footer {
+      padding: 28px 0 10px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .95rem;
+    }
+
+    @media (min-width: 720px) {
+      .page { padding-top: 18px; }
+      .hero-inner { grid-template-columns: 1.1fr .9fr; align-items: end; padding: 28px; }
+      .cities-grid { grid-template-columns: .9fr 1.1fr; align-items: start; }
+      .city-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .journey-map-grid { grid-template-columns: 1.05fr .95fr; align-items: start; }
+      .map-grid { grid-template-columns: 1.05fr .95fr; align-items: start; }
+      .tier-item { grid-template-columns: 180px 1fr; }
+      .content-grid { grid-template-columns: .95fr 1.05fr; align-items: start; }
+      .stats { align-self: start; }
+      .day-body { padding: 0 18px 18px; }
+      .day summary { padding: 18px; }
+      .day-title h3 { font-size: 1.35rem; }
+    }
+
+    @media (max-width: 719px) {
+      .topbar-inner { flex-direction: column; align-items: stretch; }
+      .nav { justify-content: flex-start; }
+      .stats { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: start; }
+      .hero h1 { text-wrap: balance; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-mark">🇨🇴</span>
+          <span>Diario Colombia</span>
+        </div>
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#viaje">Viaje</a>
+          <a href="#ciudades">Ciudades</a>
+          <a href="#dias">Días</a>
+          <a href="#notas">Notas</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="viaje">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Viaje a Colombia 🇨🇴</div>
+          <h1>Viaje a Colombia<br />2026</h1>
+          <p>
+            Hola, a la orden bienvenido bien pueda
+          </p>
+          <div class="chips" aria-label="Resumen del viaje">
+            <span class="chip">👥 Marc · Aleix · Alejandro</span>
+            <span class="chip">📅 14 feb - 1 mar 2026</span>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Resumen rápido">
+          <div class="stat">
+            <strong>12 días</strong>
+            <span>de ruta por Colombia</span>
+          </div>
+          <div class="stat">
+            <strong>6 destinos</strong>
+            <span>Bogotá, Armenia, Medellín, Cartagena, San Andrés y Providencia</span>
+          </div>
+          <div class="stat">
+            <strong>Modo diario</strong>
+            <span>Todo plegable y listo para fotos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ciudades">
+      <div class="section-header">
+        <div>
+          <h2>Mapa / resumen por ciudades</h2>
+          <p>Recorrido visual rápido para entender la ruta del viaje de un vistazo.</p>
+        </div>
+      </div>
+
+      <div class="cities">
+        <div class="cities-grid">
+          <div class="route-map" aria-label="Ruta del viaje por ciudades">
+            <h3>Ruta principal</h3>
+            <div class="route-line">
+              <div class="stop">
+                <strong>Bogotá</strong>
+                <span>Días 1, 2 y 3 · llegada, centro, Monserrate y salida al Eje Cafetero.</span>
+              </div>
+              <div class="stop">
+                <strong>Armenia / Salento / Filandia</strong>
+                <span>Días 3, 4 y 5 · paisaje cafetero, Cocora y pueblos.</span>
+              </div>
+              <div class="stop">
+                <strong>Medellín</strong>
+                <span>Días 5, 6, 7 y 8 · ciudad, Guatapé y Comuna 13.</span>
+              </div>
+              <div class="stop">
+                <strong>Cartagena</strong>
+                <span>Días 8, 9 y 10 · casco antiguo, Getsemaní e Islas del Rosario.</span>
+              </div>
+              <div class="stop">
+                <strong>San Andrés</strong>
+                <span>Día 11 · escala y paseo por la isla.</span>
+              </div>
+              <div class="stop">
+                <strong>Providencia</strong>
+                <span>Día 12 · cierre del viaje con buggy y ruta por la isla.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-cards">
+            <article class="city-card">
+              <strong>🏙️ Bogotá</strong>
+              <p>Inicio del viaje, planes urbanos, Monserrate y primeras noches entre frío, altura y ciudad.</p>
+            </article>
+            <article class="city-card">
+              <strong>🌴 Eje Cafetero</strong>
+              <p>Armenia, Salento y Filandia para paisaje, café, palmas de cera y pueblos tranquilos.</p>
+            </article>
+            <article class="city-card">
+              <strong>🎶 Medellín</strong>
+              <p>Plan de ciudad, Guatapé y Comuna 13 con noches largas, color y buen ambiente paisa.</p>
+            </article>
+            <article class="city-card">
+              <strong>🏖️ Caribe</strong>
+              <p>Cartagena, San Andrés y Providencia para cerrar con mar, brisa, arena y relax caribeño.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mapa-itinerario">
+      <div class="section-header">
+        <div>
+          <h2>Mapa del itinerario recorrido</h2>
+          <p>Vista global del trayecto completo, con ubicaciones aproximadas según la posición real de cada sitio.</p>
+        </div>
+      </div>
+
+      <div class="map-panel">
+        <div class="map-grid">
+          <div class="map-figure" aria-label="Mapa estilizado de Colombia con itinerario">
+            <h3>Ruta sobre Colombia</h3>
+            <img class="map-image" src="images/polarsteps.jpeg" alt="Mapa del itinerario recorrido en Colombia" loading="lazy" />
+          </div>
+
+          <div class="map-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background: var(--col-yellow);"></span>
+              <div>
+                <strong>Bogotá</strong>
+                <span>Inicio del viaje, altura, ciudad y salida al interior.</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: var(--col-green);"></span>
+              <div>
+                <strong>Eje Cafetero</strong>
+                <span>Armenia, Salento y Filandia: paisaje, café y montaña verde.</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: var(--col-blue);"></span>
+              <div>
+                <strong>Medellín</strong>
+                <span>Ciudad, Guatapé y Comuna 13 como tramo urbano principal.</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: var(--col-red);"></span>
+              <div>
+                <strong>Caribe</strong>
+                <span>Cartagena, San Andrés y Providencia para el cierre de mar e isla.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-summary" style="margin-top:16px;">
+          <article class="journey-summary-card">
+            <strong>🧭 Recorrido general</strong>
+            <p>Bogotá → Eje Cafetero → Medellín → Cartagena → San Andrés → Providencia.</p>
+          </article>
+          <article class="journey-summary-card">
+            <strong>🌋 Montaña + ciudad + mar</strong>
+            <p>Una ruta que mezcla altura, paisaje cafetero, vida urbana y remate caribeño.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dias">
+      <div class="section-header">
+        <div>
+          <h2>Itinerario día a día</h2>
+          <p>Abre cada día para ver la ruta, las actividades y el placeholder de imagen preparado para subir las fotos después.</p>
+        </div>
+      </div>
+
+      <div class="controls" aria-label="Accesos rápidos">
+        <a class="control" href="#dia-1">Día 1</a>
+        <a class="control" href="#dia-4">Día 4</a>
+        <a class="control" href="#dia-8">Día 8</a>
+        <a class="control" href="#dia-12">Día 12</a>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <details class="day" id="dia-1" open>
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 1 · Bogotá</h3>
+                <div class="day-meta">Llegada a la capital y primera salida nocturna</div>
+              </div>
+              <span class="day-badge">14 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">✈️ Llegada</span>
+              <span class="mini-chip">🍹 Zona Rosa</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 1 en Bogotá" loading="lazy" />
+                <figcaption>Placeholder para las fotos de llegada y primera noche.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Llegada a Bogotá por la tarde ✈️</span></li>
+                <li><span class="bullet">2</span><span>Salir a tomar algo a la Zona Rosa 🍹</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-2">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 2 · Bogotá</h3>
+                <div class="day-meta">Bici, centro histórico y plan completo de ciudad</div>
+              </div>
+              <span class="day-badge">15 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🚲 Bicicleta</span>
+              <span class="mini-chip">🥩 Andrés</span>
+              <span class="mini-chip">🍹 Zona G</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 2 en Bogotá" loading="lazy" />
+                <figcaption>Placeholder para fotos del paseo por Bogotá.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Paseo en bicicleta 🚲</span></li>
+                <li><span class="bullet">2</span><span>Comida en La Candelaria 🍔</span></li>
+                <li><span class="bullet">3</span><span>Tour por el centro de Bogotá</span></li>
+                <li><span class="bullet">4</span><span>Cena en Andrés Carne de Res 🥩</span></li>
+                <li><span class="bullet">5</span><span>Cubata en Zona G 🍹</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-3">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 3 · Bogotá → Armenia</h3>
+                <div class="day-meta">Monserrate, comida intensa y salto al Eje Cafetero</div>
+              </div>
+              <span class="day-badge">16 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">⛰️ Monserrate</span>
+              <span class="mini-chip">✈️ Vuelo</span>
+              <span class="mini-chip">🎱 Billar</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 3 entre Bogotá y Armenia" loading="lazy" />
+                <figcaption>Placeholder para fotos de Monserrate, viaje y noche en Armenia.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Visita a Monserrate ⛰️</span></li>
+                <li><span class="bullet">2</span><span>Comida (sopa) 🍜 💀</span></li>
+                <li><span class="bullet">3</span><span>Vuelo a Armenia ✈️</span></li>
+                <li><span class="bullet">4</span><span>Llegada al apartamento 🚕</span></li>
+                <li><span class="bullet">5</span><span>Cena en Las Perras 🌭</span></li>
+                <li><span class="bullet">6</span><span>Billar y tejo 🎱</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-4">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 4 · Salento / Valle del Cocora</h3>
+                <div class="day-meta">Naturaleza, pueblo y tejo con aguapanelazo</div>
+              </div>
+              <span class="day-badge">17 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🌴 Cocora</span>
+              <span class="mini-chip">🚶‍♂️ Salento</span>
+              <span class="mini-chip">🥌 Tejo</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 4 en Valle del Cocora y Salento" loading="lazy" />
+                <figcaption>Placeholder para fotos de palmeras, pueblo y noche con aguardiente.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Tour Valle del Cocora con Jorge 🌴</span></li>
+                <li><span class="bullet">2</span><span>Paseo por Salento 🚶‍♂️</span></li>
+                <li><span class="bullet">3</span><span>Aguardiente y Tejo 🥌</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-5">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 5 · Filandia → Medellín</h3>
+                <div class="day-meta">Último vistazo al Eje Cafetero y cambio de base</div>
+              </div>
+              <span class="day-badge">18 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🏘️ Filandia</span>
+              <span class="mini-chip">🎰 Putivuela</span>
+              <span class="mini-chip">🍕 Domino’s</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 5 entre Filandia y Medellín" loading="lazy" />
+                <figcaption>Placeholder para fotos de Filandia, vuelo y noche en Medellín.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Visita a Filandia 🏘️</span></li>
+                <li><span class="bullet">2</span><span>Vuelo a Medellín ✈️</span></li>
+                <li><span class="bullet">3</span><span>Putivuela 🎰</span></li>
+                <li><span class="bullet">4</span><span>Domino’s Pizza 🍕</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-6">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 6 · Medellín</h3>
+                <div class="day-meta">Centro, plan improvisado y noche de fiesta</div>
+              </div>
+              <span class="day-badge">19 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">⏰ Falsa alarma</span>
+              <span class="mini-chip">🕴️ Free tour</span>
+              <span class="mini-chip">🕺 Fiesta</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 6 en Medellín" loading="lazy" />
+                <figcaption>Placeholder para fotos del centro y de la noche en Medellín.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Falsa alarma Guatapé ⏰</span></li>
+                <li><span class="bullet">2</span><span>Free tour "no free" en el Centro de Medellín 🕴️</span></li>
+                <li><span class="bullet">3</span><span>Marcela El Retiro + fiesta 🕺</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-7">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 7 · Guatapé</h3>
+                <div class="day-meta">Piedra, agua y cierre con medallo de noche</div>
+              </div>
+              <span class="day-badge">20 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">⛰️ Guatapé</span>
+              <span class="mini-chip">🍸 Show Medallo</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 7 en Guatapé" loading="lazy" />
+                <figcaption>Placeholder para fotos del pueblo, la piedra y la noche.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Guatapé ⛰️</span></li>
+                <li><span class="bullet">2</span><span>Show Medallo 🍸</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-8">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 8 · Medellín → Cartagena</h3>
+                <div class="day-meta">Comuna 13 y salto a la costa caribeña</div>
+              </div>
+              <span class="day-badge">21 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🎤 Comuna 13</span>
+              <span class="mini-chip">✈️ Vuelo</span>
+              <span class="mini-chip">Cabildo</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 8 entre Medellín y Cartagena" loading="lazy" />
+                <figcaption>Placeholder para fotos del tour y llegada a Cartagena.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Tour Comuna 13 🎤</span></li>
+                <li><span class="bullet">2</span><span>Vuelo a Cartagena de Indias ✈️</span></li>
+                <li><span class="bullet">3</span><span>Cena en Cabildo</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-9">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 9 · Cartagena</h3>
+                <div class="day-meta">Casco antiguo, Getsemaní y noche de fiesta</div>
+              </div>
+              <span class="day-badge">22 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🏰 Castillo</span>
+              <span class="mini-chip">🕴️ Free tour</span>
+              <span class="mini-chip">🪩 La Movida</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 9 en Cartagena" loading="lazy" />
+                <figcaption>Placeholder para fotos del casco histórico y la noche cartagenera.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Free tour por el casco antiguo 🕴️</span></li>
+                <li><span class="bullet">2</span><span>Free tour Getsemaní + Castillo San Felipe 🏰</span></li>
+                <li><span class="bullet">3</span><span>Fiesta en La Movida 🪩</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-10">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 10 · Islas del Rosario</h3>
+                <div class="day-meta">Mar, barco y despedida gastronómica</div>
+              </div>
+              <span class="day-badge">23 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🚤 Islas</span>
+              <span class="mini-chip">🍽️ Despedida</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 10 en Islas del Rosario" loading="lazy" />
+                <figcaption>Placeholder para fotos de mar, barco y última cena en Cartagena.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Tour Islas del Rosario 🚤</span></li>
+                <li><span class="bullet">2</span><span>Cena de despedida en Cabildo 🍽️</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-11">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 11 · San Andrés</h3>
+                <div class="day-meta">Vuelo, contratiempo y paseo isleño</div>
+              </div>
+              <span class="day-badge">24 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">✈️ San Andrés</span>
+              <span class="mini-chip">🤦‍♂️ Vuelo perdido</span>
+              <span class="mini-chip">🏝️ Playa</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 11 en San Andrés" loading="lazy" />
+                <figcaption>Placeholder para fotos del vuelo, el paseo y la cena.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Vuelo a San Andrés ✈️</span></li>
+                <li><span class="bullet">2</span><span>Vuelo perdido a Providencia 🤦‍♂️</span></li>
+                <li><span class="bullet">3</span><span>Paseo por San Andrés 🏝️</span></li>
+                <li><span class="bullet">4</span><span>Cena en El Peruano 🐟</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="day" id="dia-12">
+          <summary>
+            <div class="day-head">
+              <div class="day-title">
+                <h3>Día 12 · Providencia</h3>
+                <div class="day-meta">Llegada final, buggy y ruta alrededor de la isla</div>
+              </div>
+              <span class="day-badge">25 feb</span>
+            </div>
+            <div class="day-open">
+              <span class="mini-chip">🛬 Providencia</span>
+              <span class="mini-chip">🏎️ Buggy</span>
+              <span class="mini-chip">🗺️ Ruta</span>
+            </div>
+          </summary>
+          <div class="day-body">
+            <div class="content-grid">
+              <figure class="photo">
+                <img src="placeholder.jpg" alt="Placeholder de imagen del Día 12 en Providencia" loading="lazy" />
+                <figcaption>Placeholder para fotos de Providencia y la ruta por la isla.</figcaption>
+              </figure>
+              <ul class="activity-list">
+                <li><span class="bullet">1</span><span>Llegada a Providencia 🛬</span></li>
+                <li><span class="bullet">2</span><span>Alquiler de Buggy 🏎️</span></li>
+                <li><span class="bullet">3</span><span>Ruta por la isla 🗺️</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="tier-de-panchos">
+      <div class="section-header">
+        <div>
+          <h2>Tier de Panchos</h2>
+          <p>Ranking interno de conceptos, palabras y guiños del viaje. Arrastra para reordenar.</p>
+        </div>
+      </div>
+
+      <div class="tier-wrap">
+        <div class="tier-header">
+          <strong>Memómetro oficial del viaje</strong>
+          <span>Drag and drop habilitado</span>
+        </div>
+        <div class="tier-pills" aria-label="Niveles de tier list">
+          <span class="tier-pill">Tier 1</span>
+          <span class="tier-pill">Tier 2</span>
+          <span class="tier-pill">Tier 3</span>
+          <span class="tier-pill">Tier 4</span>
+          <span class="tier-pill">Tier 5</span>
+        </div>
+        <div class="tier-list">
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-top" draggable="true"><div class="tier-rank">Tier 1</div><div class="tier-content">Parqueadero</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-top" draggable="true"><div class="tier-rank">Tier 1</div><div class="tier-content">Carro</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-top" draggable="true"><div class="tier-rank">Tier 1</div><div class="tier-content">Metro cable</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-raro" draggable="true"><div class="tier-rank">Tier 2</div><div class="tier-content">Cancha</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-raro" draggable="true"><div class="tier-rank">Tier 2</div><div class="tier-content">Con gusto</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-raro" draggable="true"><div class="tier-rank">Tier 2</div><div class="tier-content">Hola a la orden bienvenido bien pueda</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-bacano" draggable="true"><div class="tier-rank">Tier 3</div><div class="tier-content">Chévere</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-bacano" draggable="true"><div class="tier-rank">Tier 3</div><div class="tier-content">Pare (señal stop 🛑)</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-bacano" draggable="true"><div class="tier-rank">Tier 3</div><div class="tier-content">Acá</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-bacano" draggable="true"><div class="tier-rank">Tier 3</div><div class="tier-content">Cabello crespo</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-uff" draggable="true"><div class="tier-rank">Tier 4</div><div class="tier-content">Trago</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-uff" draggable="true"><div class="tier-rank">Tier 4</div><div class="tier-content">Miadero</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-uff" draggable="true"><div class="tier-rank">Tier 4</div><div class="tier-content">Colectivo</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-uff" draggable="true"><div class="tier-rank">Tier 4</div><div class="tier-content">Rentar</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-ruido" draggable="true"><div class="tier-rank">Tier 5</div><div class="tier-content">Es un buen momento para respirar profundo</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-ruido" draggable="true"><div class="tier-rank">Tier 5</div><div class="tier-content">Marcela</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-ruido" draggable="true"><div class="tier-rank">Tier 5</div><div class="tier-content">Me regalas?</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-ruido" draggable="true"><div class="tier-rank">Tier 5</div><div class="tier-content">Como así?</div></div>
+          <div class="tier-dropzone"></div>
+          <div class="tier-item t-ruido" draggable="true"><div class="tier-rank">Tier 5</div><div class="tier-content">Cosmeteologia</div></div>
+          <div class="tier-dropzone"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="notas">
+      <div class="section-header">
+        <div>
+          <h2>Notas de viaje</h2>
+          <p>Espacio pensado para añadir anécdotas, enlaces, o cualquier detalle extra del viaje.</p>
+        </div>
+      </div>
+      <p class="note">
+        Consejo: cuando subas las fotos, puedes sustituir cada `placeholder.jpg` por la imagen real sin tocar la estructura.
+      </p>
+    </section>
+
+    <footer class="footer">
+      Hecho para guardar el viaje de Marc, Aleix y Alejandro por Colombia.
+    </footer>
+  </div>
+
+  <script>
+    const days = Array.from(document.querySelectorAll('.day'));
+    const expandAll = document.getElementById('expandAll');
+    const collapseAll = document.getElementById('collapseAll');
+    const tierList = document.querySelector('.tier-list');
+    let draggedTierItem = null;
+
+    expandAll.addEventListener('click', () => {
+      days.forEach(day => day.open = true);
+    });
+
+    collapseAll.addEventListener('click', () => {
+      days.forEach(day => day.open = false);
+      const first = document.querySelector('#dia-1');
+      if (first) first.open = true;
+    });
+
+    if (tierList) {
+      const tierItems = Array.from(tierList.querySelectorAll('.tier-item'));
+      const dropzones = Array.from(tierList.querySelectorAll('.tier-dropzone'));
+
+      tierItems.forEach(item => {
+        item.addEventListener('dragstart', () => {
+          draggedTierItem = item;
+          item.classList.add('dragging');
+        });
+
+        item.addEventListener('dragend', () => {
+          item.classList.remove('dragging');
+          draggedTierItem = null;
+          dropzones.forEach(zone => zone.classList.remove('active'));
+        });
+      });
+
+      dropzones.forEach(zone => {
+        zone.addEventListener('dragover', event => {
+          event.preventDefault();
+          zone.classList.add('active');
+        });
+
+        zone.addEventListener('dragleave', () => zone.classList.remove('active'));
+
+        zone.addEventListener('drop', event => {
+          event.preventDefault();
+          zone.classList.remove('active');
+          if (!draggedTierItem || zone === draggedTierItem.previousElementSibling || zone === draggedTierItem.nextElementSibling) return;
+
+          const targetIndex = dropzones.indexOf(zone);
+          const referenceNode = tierList.children[targetIndex];
+          tierList.insertBefore(draggedTierItem, referenceNode || null);
+          tierList.insertBefore(zone, draggedTierItem.nextElementSibling);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
