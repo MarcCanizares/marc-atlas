@@ -1,0 +1,14 @@
+.github/CODEOWNERS
+  h_8a685f2f1109f7 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "db297fd80da15eabc4ab6b234ac5e1fdffe16533",
+  "prompts": {},
+  "humans": {
+    "h_8a685f2f1109f7": {
+      "author": "MarcCanizares <marc.canizares@glovoapp.com>"
+    }
+  }
+}
