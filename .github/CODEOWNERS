@@ -1,0 +1,6 @@
+# ==============================================================================
+# EJEMPLO DE ARCHIVO CODEOWNERS
+# ==============================================================================
+
+# Regla global: Marc es el propietario por defecto de TODO el repositorio
+* @MarcCanizares
