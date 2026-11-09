@@ -56,8 +56,8 @@
     <section class="scene" data-scene="1" aria-label="Primera pista">
       <div class="scene__inner">
         <div class="lines">
-          <p class="line">No me había olvidado.</p>
-          <p class="line">Hay cosas que prefiero entregarte en persona.</p>
+          <p class="line">No me he olvidado.</p>
+          <p class="line">Hay cosas que preferiría entregarte en persona.</p>
           <p class="line">Pero esta vez no ha podido ser.</p>
           <p class="line line--accent">Así que he buscado otra manera.</p>
         </div>
@@ -65,91 +65,50 @@
       </div>
     </section>
 
-    <!-- ESCENA 3 · CONEXIÓN -->
-    <section class="scene" data-scene="2" aria-label="Conexión">
-      <div class="scene__inner">
-        <p class="lead line">Pero antes, quiero que recuerdes algo.</p>
-
-        <button type="button" class="focus" id="focusBtn" aria-label="Enfocar la fotografía">
-          <figure class="polaroid polaroid--p focus__frame">
-            <div class="polaroid__photo">
-              <img class="focus__img" data-src="images/foto-06.jpg" width="960" height="1280" decoding="async"
-                   alt="Victoria y yo ante un espejo; en él hay escrita la frase «Qué bien volver a verte»">
-            </div>
-          </figure>
-          <span class="focus__hint">toca para enfocar</span>
-        </button>
-
-        <p class="line caption later" id="cap2">Eso mismo pienso cada vez.</p>
-        <button type="button" class="btn later" id="next2" data-next>Seguir</button>
-      </div>
-    </section>
-
-    <!-- ESCENA 4 · RECUERDOS -->
-    <section class="scene" data-scene="3" aria-label="Recuerdos">
+    <!-- ESCENA 3 · RECUERDOS -->
+    <section class="scene" data-scene="2" aria-label="Recuerdos">
       <div class="scene__inner">
         <p class="lead line">Mira todo lo que hemos ido guardando.</p>
 
         <div class="stack" id="stack">
-          <figure class="polaroid polaroid--p is-pending" style="--x:0%;--y:0%;--r:-3deg">
+          <figure class="polaroid polaroid--p" style="--x:0%;--y:0%;--r:-3deg">
+            <div class="polaroid__photo"><img data-src="images/foto-06.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo ante un espejo; en él hay escrita la frase «Qué bien volver a verte»"></div>
+          </figure>
+          <figure class="polaroid polaroid--p" style="--x:5%;--y:-2%;--r:4deg">
             <div class="polaroid__photo"><img data-src="images/foto-01.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo abrazados en un mirador con vistas al mar y a un pueblo blanco"></div>
           </figure>
-          <figure class="polaroid polaroid--l is-pending" style="--x:5%;--y:-2%;--r:4deg">
+          <figure class="polaroid polaroid--l" style="--x:-6%;--y:3%;--r:-5deg">
             <div class="polaroid__photo"><img data-src="images/foto-04.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo en la playa, junto a las rocas, con un pequeño picnic sobre la toalla"></div>
           </figure>
-          <figure class="polaroid polaroid--l is-pending" style="--x:-6%;--y:3%;--r:-5deg">
+          <figure class="polaroid polaroid--l" style="--x:4%;--y:-3%;--r:3deg">
             <div class="polaroid__photo"><img data-src="images/foto-02.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo sonriendo en un kayak amarillo en medio del mar"></div>
           </figure>
-          <figure class="polaroid polaroid--l is-pending" style="--x:4%;--y:-3%;--r:3deg">
+          <figure class="polaroid polaroid--p" style="--x:-4%;--y:2%;--r:-2deg">
+            <div class="polaroid__photo"><img data-src="images/foto-08.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo abrazados de noche junto a un muro blanco iluminado por pequeñas velas"></div>
+          </figure>
+          <figure class="polaroid polaroid--l" style="--x:6%;--y:-2%;--r:5deg">
             <div class="polaroid__photo"><img data-src="images/foto-05.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo abrazados en un selfi sobre un acantilado, con el mar al fondo"></div>
           </figure>
-          <figure class="polaroid polaroid--l is-pending" style="--x:-3%;--y:2%;--r:-2deg">
+          <figure class="polaroid polaroid--l" style="--x:-3%;--y:2%;--r:-3deg">
             <div class="polaroid__photo"><img data-src="images/foto-09.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo sonriendo de noche en una plaza"></div>
           </figure>
         </div>
 
         <div class="controls">
-          <button type="button" class="btn later" id="memBtn">Otro recuerdo <span class="count" id="memCount">1 / 5</span></button>
-          <p class="line caption later" id="memEnd">Cada foto, un trozo de nosotros.</p>
+          <button type="button" class="btn later" id="memBtn">Otro recuerdo <span class="count" id="memCount">1 / 7</span></button>
+          <div class="memlines" id="memLines">
+            <p class="line line--accent" id="memB">Y esto no ha hecho más que empezar.</p>
+          </div>
           <button type="button" class="btn later" id="next3" data-next>Seguir</button>
         </div>
       </div>
     </section>
 
-    <!-- ESCENA 5 · SENTIMIENTOS -->
-    <section class="scene" data-scene="4" aria-label="Sentimientos">
-      <div class="scene__inner scene__inner--candles">
-        <figure class="polaroid polaroid--p polaroid--small tilt">
-          <div class="polaroid__photo"><img data-src="images/foto-08.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo abrazados de noche junto a un muro blanco iluminado por pequeñas velas"></div>
-        </figure>
-
-        <div class="lines lines--stack" id="lines4">
-          <p class="line">Lo que importa no es el sitio.</p>
-          <p class="line">Es con quién compartes el momento.</p>
-          <p class="line line--accent">Y contigo, hasta lo más sencillo se vuelve especial.</p>
-        </div>
-
-        <div class="candles" id="candles" role="group" aria-label="Tres luces por encender">
-          <button type="button" class="candle is-next" aria-label="Encender la primera luz">
-            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
-          </button>
-          <button type="button" class="candle" aria-label="Encender la segunda luz" disabled>
-            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
-          </button>
-          <button type="button" class="candle" aria-label="Encender la tercera luz" disabled>
-            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
-          </button>
-        </div>
-
-        <button type="button" class="btn later" id="next4" data-next>Seguir</button>
-      </div>
-    </section>
-
-    <!-- ESCENA 6 · ANTICIPACIÓN -->
-    <section class="scene" data-scene="5" aria-label="Anticipación">
+    <!-- ESCENA 4 · ANTICIPACIÓN -->
+    <section class="scene" data-scene="3" aria-label="Anticipación">
       <div class="scene__inner scene__inner--center">
-        <p class="line line--big">Ya casi, Victoria.</p>
-        <p class="line later" id="line5b">Todo esto era para llegar hasta aquí.</p>
+        <p class="line line--big">Y a todos estos recuerdos...</p>
+        <p class="line lead later" id="line5b">hay uno nuevo que quiero añadir.</p>
         <button type="button" class="orb later" id="orb" aria-label="Tocar la luz">
           <span class="orb__ring"></span>
           <span class="orb__ring orb__ring--2"></span>
@@ -159,31 +118,32 @@
       </div>
     </section>
 
-    <!-- ESCENA 7 · REVELACIÓN + FINAL -->
-    <section class="scene scene--finale" data-scene="6" id="finale" aria-label="Revelación">
+    <!-- ESCENA 5 · REVELACIÓN + FINAL -->
+    <section class="scene scene--finale" data-scene="4" id="finale" aria-label="Revelación">
       <div class="hero">
         <div class="bouquet-wrap">
           <div class="bouquet-glow" aria-hidden="true"></div>
           <svg id="bouquet" viewBox="0 0 400 560" role="img" aria-label="Un ramito de violetas atado con un lazo lavanda"></svg>
+
+          <!-- Foto de la entrega: aparece sobre el ramo mientras el mensaje habla de dárselo en persona -->
+          <figure class="polaroid polaroid--l delivery" id="delivery">
+            <div class="polaroid__photo"><img data-src="images/foto-11.jpg" width="1280" height="960" decoding="async" alt="Yo entregándole a Victoria un ramito de violetas en un mirador junto al mar, los dos sonriendo"></div>
+          </figure>
         </div>
 
         <div class="hero__bottom">
           <!-- Mensaje: un párrafo cada vez, con aparición palabra a palabra -->
           <div class="message" id="message" aria-live="polite">
-            <p class="msg msg--name script" data-split>Victoria...</p>
-            <p class="msg" data-split>Espero que esta sea la última vez que tenga que enviarte un ramito de violetas sin poder dártelo en persona.</p>
-            <p class="msg" data-split>Porque lo que de verdad deseo es estar ahí, entregártelo yo mismo, verte sonreír y compartir contigo ese pequeño momento.</p>
-            <p class="msg" data-split>Quiero que los próximos ramos pueda dártelos en persona, sin pantallas ni distancias de por medio.</p>
-            <p class="msg" data-split>Estoy deseando construir una vida contigo, compartir nuestro día a día, nuestros sueños, nuestros planes y todos esos pequeños momentos que hacen que la vida merezca la pena.</p>
-            <p class="msg" data-split>Quiero estar ahí para las cosas extraordinarias, pero también para las más sencillas. Para compartir contigo todo lo que todavía nos queda por vivir.</p>
+            <p class="msg" data-split>Espero que esta sea la última vez que tenga que enviártelo sin poder dártelo en persona.</p>
+            <p class="msg" data-split>Y que esto se convierta en un recuerdo y en una tradición nuestra.</p>
             <p class="msg" data-split>Hasta que llegue ese momento, aquí tienes tu ramito de violetas.</p>
-            <p class="msg msg--end" data-split>Para ti, hoy y siempre. 💜</p>
+            <p class="msg msg--end" data-split>Te adoro amor meu 💜</p>
           </div>
           <p class="tap-hint" id="tapHint" aria-hidden="true">toca para avanzar</p>
 
           <!-- La canción: aparece cuando termina el mensaje -->
           <div class="song" id="song">
-            <p class="song__eyebrow">Hay canciones que dicen lo que a uno le cuesta decir</p>
+            <p class="song__eyebrow">Deseando escucharla contigo</p>
             <p class="song__title">Un ramito de violetas</p>
             <p class="song__artist">Manzanita</p>
             <a class="spotify" id="spotify" href="https://open.spotify.com/track/02PROe7elhI6Cyu6KJONhX" target="_blank" rel="noopener noreferrer">
@@ -199,11 +159,6 @@
 
       <!-- Después del mensaje: fotografías y frase final -->
       <div class="after" id="after">
-        <figure class="polaroid polaroid--l featured io">
-          <div class="polaroid__photo"><img data-src="images/foto-11.jpg" width="1280" height="960" loading="lazy" decoding="async" alt="Yo entregándole a Victoria un ramito de violetas en un mirador junto al mar, los dos sonriendo"></div>
-          <figcaption class="polaroid__caption script">Así. En persona.</figcaption>
-        </figure>
-
         <div class="fan" aria-label="Algunos de nuestros recuerdos">
           <figure class="polaroid polaroid--p fan__a io">
             <div class="polaroid__photo"><img data-src="images/foto-03.jpg" width="960" height="1280" loading="lazy" decoding="async" alt="Victoria y yo vestidos de blanco, abrazados frente al mar azul"></div>

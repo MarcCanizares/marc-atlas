@@ -237,19 +237,17 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 .scene__inner--center { gap: 1.8rem; }
 
 /* Elementos que aparecen de forma escalonada */
-.line, .later, .focus, .tilt, .candles {
+.line, .later {
   opacity: 0;
   transform: translateY(14px);
   filter: blur(6px);
   transition: opacity 1.4s ease, transform 1.6s var(--ease), filter 1.4s ease;
 }
-.line.in, .later.in, .focus.in, .tilt.in, .candles.in {
+.line.in, .later.in {
   opacity: 1; transform: none; filter: none;
 }
-.tilt { transform: translateY(26px) rotate(-3deg); }
-.tilt.in { transform: rotate(-2.5deg); }
 
-.line:not(.in), .later:not(.in), .focus:not(.in), .tilt:not(.in), .candles:not(.in) { pointer-events: none; }
+.line:not(.in), .later:not(.in) { pointer-events: none; }
 [hidden] { display: none !important; }
 
 .line {
@@ -273,8 +271,6 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 .caption { font-style: italic; color: var(--cream); font-size: clamp(1.25rem, 5vw, 1.55rem); }
 
 .lines { display: grid; gap: 1.1rem; }
-.lines--stack { gap: 0.7rem; min-height: 11.5rem; align-content: start; }
-.lines--stack .line { font-size: clamp(1.2rem, 4.9vw, 1.6rem); }
 
 /* ---------- Botón ---------- */
 .btn {
@@ -386,29 +382,15 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 
 .polaroid--p { width: min(64vw, calc(var(--maxh, 46svh) * 0.75), 330px); }
 .polaroid--l { width: min(82vw, calc(var(--maxh, 36svh) * 1.333), 420px); }
-.polaroid--small { --maxh: 27svh; }
 
-/* ==========================================================================
-   ESCENA 3 · Conexión (foto desenfocada que se enfoca)
-   ========================================================================== */
-.focus { position: relative; display: grid; justify-items: center; gap: 0.9rem; --maxh: 38svh; }
-.focus__frame { transform: rotate(-2deg); }
-.focus__img { filter: blur(20px) brightness(0.85); transform: scale(1.12); transition: opacity 1s ease, filter 2.2s ease, transform 2.2s var(--ease); }
-.focus.is-focused .focus__img { filter: none; transform: none; }
-.focus__hint {
-  font-size: 0.82rem; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--gold);
-  animation: breathe 2.8s ease-in-out infinite;
-  transition: opacity 0.6s ease;
-}
-.focus.is-focused .focus__hint { opacity: 0; animation: none; }
 @keyframes breathe { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
 
 /* ==========================================================================
-   ESCENA 4 · Recuerdos (pila de polaroids que se descubren una a una)
+   ESCENA 3 · Recuerdos (pila de polaroids que se descubren una a una)
    ========================================================================== */
 .stack {
-  --stack-h: min(48svh, 460px);
+  --stack-h: min(43svh, 440px);
+  cursor: pointer;
   position: relative;
   width: min(86vw, 440px); height: var(--stack-h);
 }
@@ -426,40 +408,15 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 .stack .polaroid--l { width: min(80%, calc((var(--stack-h) - 40px) * 1.15)); }
 
 .controls {
-  display: grid; justify-items: center; align-items: center; gap: 0.9rem;
-  min-height: 7.2rem; align-content: start;
+  display: grid; justify-items: center; align-items: start; gap: 0.9rem;
+  width: 100%;
 }
-.controls #memEnd { grid-area: 1 / 1; }
+.controls .memlines { grid-area: 1 / 1; display: grid; gap: 0.5rem; }
+.controls .memlines .line { font-size: clamp(1.12rem, 4.5vw, 1.45rem); }
 .controls #memBtn, .controls #next3 { grid-area: 2 / 1; }
 
 /* ==========================================================================
-   ESCENA 5 · Sentimientos (velas)
-   ========================================================================== */
-.scene__inner--candles { gap: 1.1rem; }
-.candles { display: flex; gap: 1.4rem; align-items: flex-end; }
-.candle {
-  width: 52px; height: 92px; padding: 6px;
-  display: grid; place-items: end center;
-  opacity: 0.5;
-  transition: opacity 0.6s ease, filter 0.8s ease;
-}
-.candle svg { width: 30px; height: 70px; overflow: visible; }
-.candle__wax { fill: #e9ddca; }
-.candle__wick { stroke: #6b5a4a; stroke-width: 1.4; stroke-linecap: round; fill: none; }
-.candle__flame { opacity: 0; transform: scale(0.3); transform-origin: 14px 22px; transition: opacity 0.8s ease, transform 1s var(--ease); }
-.candle__flame path { fill: #f3c76a; }
-.candle__flame .inner { fill: #fff6dc; }
-.candle.is-next { opacity: 1; animation: breathe 2.2s ease-in-out infinite; }
-.candle.lit { opacity: 1; filter: drop-shadow(0 0 14px rgba(243, 199, 106, 0.75)); animation: none; }
-.candle.lit .candle__flame { opacity: 1; transform: scale(1); animation: flicker 2.4s ease-in-out 1s infinite; }
-@keyframes flicker {
-  0%, 100% { transform: scale(1) rotate(0); }
-  30% { transform: scale(1.04, 0.97) rotate(-2deg); }
-  60% { transform: scale(0.97, 1.04) rotate(1.5deg); }
-}
-
-/* ==========================================================================
-   ESCENA 6 · Anticipación (la luz)
+   ESCENA 4 · Anticipación (la luz)
    ========================================================================== */
 .orb {
   position: relative;
@@ -483,7 +440,7 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
 
 /* ==========================================================================
-   ESCENA 7 · Revelación y final
+   ESCENA 5 · Revelación y final
    ========================================================================== */
 .scene--finale {
   display: block; padding: 0;
@@ -511,6 +468,25 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
   opacity: 0; transition: opacity 3s ease;
 }
 .bouquet-glow.on { opacity: 1; }
+
+/* Foto de la entrega: sustituye al ramo mientras el mensaje habla de dárselo en persona */
+.delivery {
+  position: absolute; left: 50%; top: 50%;
+  width: min(84vw, 400px);
+  margin: 0;
+  z-index: 2;
+  opacity: 0; visibility: hidden;
+  transform: translate(-50%, -46%) rotate(-2deg) scale(0.94);
+  transition: opacity 1.2s ease, transform 1.6s var(--ease), visibility 0s linear 1.2s;
+}
+.delivery.on {
+  opacity: 1; visibility: visible;
+  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+  transition: opacity 1.2s ease, transform 1.6s var(--ease), visibility 0s;
+}
+.delivery .polaroid__caption { font-size: clamp(1.6rem, 6.5vw, 2.1rem); padding: 8px 0 4px; }
+#bouquet { transition: opacity 1.2s ease; }
+#bouquet.dim { opacity: 0; }
 
 #bouquet {
   position: relative;
@@ -652,9 +628,6 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 }
 .io.in { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
 
-.featured { --rot: -1.5deg; width: min(88vw, 520px); padding: 10px 10px 6px; }
-.featured .polaroid__caption { font-size: clamp(1.7rem, 7vw, 2.3rem); padding: 10px 0 6px; }
-
 .fan { display: flex; justify-content: center; align-items: center; width: 100%; }
 .fan .polaroid { margin: 0 -10px; padding: 7px; }
 .fan .polaroid--p { width: clamp(104px, 29vw, 170px); }
@@ -684,7 +657,6 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 @media (min-width: 768px) {
   body { font-size: 20px; }
   .scene { padding-left: 48px; padding-right: 48px; }
-  .polaroid--small { --maxh: 30svh; }
   .after { gap: 3.4rem; }
 }
 
@@ -692,8 +664,6 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
 @media (max-height: 640px) {
   .scene { padding-top: calc(var(--safe-top) + 50px); }
   .scene__inner { gap: 1rem; }
-  .polaroid--small { --maxh: 22svh; }
-  .lines--stack { min-height: 9.5rem; }
   .hero__bottom { min-height: 200px; }
 }
 
@@ -706,14 +676,12 @@ body:not([data-stage="0"]):not([data-stage="6"]) .progress { opacity: 1; }
     transition-duration: 0.3s !important;
     transition-delay: 0s !important;
   }
-  .scene, .line, .later, .focus, .tilt, .candles { filter: none !important; }
-  .line, .later, .focus, .candles { transform: none !important; }
-  .tilt { transform: rotate(-2.5deg) !important; }
+  .scene, .line, .later { filter: none !important; }
+  .line, .later { transform: none !important; }
   .stack .polaroid { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) !important; }
   #bouquet { animation: none; }
   #bouquet .flower, #bouquet .leaf { transform: none; }
   .msg .w { transform: none; }
   #bouquet.is-final .spark { animation: none; opacity: 0.9; transform: none; }
   .scene.is-active .intro__name, .scene.is-active .intro__q, .scene.is-active .beacon { animation: none; opacity: 1; filter: none; transform: none; }
-  .focus__img { filter: none; transform: none; }
 }

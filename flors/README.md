@@ -10,7 +10,7 @@ HTML + CSS + JavaScript puro: sin dependencias, sin backend, sin servicios exter
 
 ```text
 flors/
-├── index.html          Estructura de las 7 escenas
+├── index.html          Estructura de las 5 escenas
 ├── style.css           Diseño, paleta y animaciones
 ├── script.js           Estados de escena, interacciones, ramo SVG, mensaje y partículas
 ├── .nojekyll           Evita el procesado de Jekyll en GitHub Pages
@@ -19,17 +19,15 @@ flors/
     └── foto-01.jpg … foto-11.jpg   Fotos optimizadas que usa la web
 ```
 
-## La historia (7 escenas)
+## La historia (5 escenas)
 
 | # | Escena | Interacción |
 |---|--------|-------------|
 | 1 | **Intriga** · «Victoria… ¿Creías que me había olvidado?» | Tocar la flecha |
 | 2 | **Primera pista** · cuatro frases que aparecen una a una | Tocar «¿Cuál?» |
-| 3 | **Conexión** · foto desenfocada del espejo («Qué bien volver a verte») | Tocar la foto para enfocarla |
-| 4 | **Recuerdos** · pila de polaroids | Tocar «Otro recuerdo» (5 fotos) |
-| 5 | **Sentimientos** · foto con velas | Encender 3 luces, una frase por cada una |
-| 6 | **Anticipación** · «Ya casi, Victoria.» | Tocar la luz |
-| 7 | **Revelación** · el ramo de violetas se forma flor a flor con el mensaje | Tocar para avanzar cada párrafo → canción → fotos finales |
+| 3 | **Recuerdos** · pila de 7 polaroids; al final, dos frases sobre compartir momentos | Tocar «Otro recuerdo» (o la pila) para descubrir cada foto |
+| 4 | **Anticipación** · «Y a todos estos recuerdos… hay uno nuevo que quiero añadir.» | Tocar la luz |
+| 5 | **Revelación** · el ramo de violetas se forma flor a flor con el mensaje; al hablar de entregarlo en persona aparece la foto de la entrega (`foto-11.jpg`) | Tocar para avanzar cada párrafo → canción → fotos finales |
 
 No aparecen flores, violetas ni la canción hasta la escena 7. No hay música automática.
 Se puede volver atrás con la flecha superior o con el botón «atrás» del móvil.
