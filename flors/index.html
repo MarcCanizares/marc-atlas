@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Para Victoria</title>
+  <meta name="description" content="¿Creías que me había olvidado?">
+  <meta name="theme-color" content="#0f0719">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Victoria...">
+  <meta property="og:description" content="¿Creías que me había olvidado?">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23b790cf'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23f1dba0'/%3E%3C/svg%3E">
+
+  <link rel="preload" href="assets/fonts/PinyonScript.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/CormorantGaramond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-stage="0">
+
+  <!-- Fondo con profundidad: base + dos resplandores que evolucionan con la historia -->
+  <div class="bg" aria-hidden="true">
+    <span class="bg__glow bg__glow--a"></span>
+    <span class="bg__glow bg__glow--b"></span>
+    <span class="bg__vignette"></span>
+  </div>
+
+  <!-- Partículas sutiles (polvo de luz y, al final, pétalos) -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+
+  <!-- UI discreta -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <button type="button" class="back" id="back" aria-label="Volver a la escena anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <main id="app">
+
+    <!-- ESCENA 1 · INTRIGA -->
+    <section class="scene is-active" data-scene="0" aria-labelledby="t0">
+      <div class="scene__inner scene__inner--intro">
+        <h1 id="t0" class="intro">
+          <span class="intro__name script">Victoria...</span>
+          <span class="intro__q">¿Creías que me había olvidado?</span>
+        </h1>
+        <button type="button" class="beacon" data-next aria-label="Continuar">
+          <span class="beacon__ring"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ESCENA 2 · PRIMERA PISTA -->
+    <section class="scene" data-scene="1" aria-label="Primera pista">
+      <div class="scene__inner">
+        <div class="lines">
+          <p class="line">No me había olvidado.</p>
+          <p class="line">Hay cosas que prefiero entregarte en persona.</p>
+          <p class="line">Pero esta vez no ha podido ser.</p>
+          <p class="line line--accent">Así que he buscado otra manera.</p>
+        </div>
+        <button type="button" class="btn later" data-next>¿Cuál?</button>
+      </div>
+    </section>
+
+    <!-- ESCENA 3 · CONEXIÓN -->
+    <section class="scene" data-scene="2" aria-label="Conexión">
+      <div class="scene__inner">
+        <p class="lead line">Pero antes, quiero que recuerdes algo.</p>
+
+        <button type="button" class="focus" id="focusBtn" aria-label="Enfocar la fotografía">
+          <figure class="polaroid polaroid--p focus__frame">
+            <div class="polaroid__photo">
+              <img class="focus__img" data-src="images/foto-06.jpg" width="960" height="1280" decoding="async"
+                   alt="Victoria y yo ante un espejo; en él hay escrita la frase «Qué bien volver a verte»">
+            </div>
+          </figure>
+          <span class="focus__hint">toca para enfocar</span>
+        </button>
+
+        <p class="line caption later" id="cap2">Eso mismo pienso cada vez.</p>
+        <button type="button" class="btn later" id="next2" data-next>Seguir</button>
+      </div>
+    </section>
+
+    <!-- ESCENA 4 · RECUERDOS -->
+    <section class="scene" data-scene="3" aria-label="Recuerdos">
+      <div class="scene__inner">
+        <p class="lead line">Mira todo lo que hemos ido guardando.</p>
+
+        <div class="stack" id="stack">
+          <figure class="polaroid polaroid--p is-pending" style="--x:0%;--y:0%;--r:-3deg">
+            <div class="polaroid__photo"><img data-src="images/foto-01.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo abrazados en un mirador con vistas al mar y a un pueblo blanco"></div>
+          </figure>
+          <figure class="polaroid polaroid--l is-pending" style="--x:5%;--y:-2%;--r:4deg">
+            <div class="polaroid__photo"><img data-src="images/foto-04.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo en la playa, junto a las rocas, con un pequeño picnic sobre la toalla"></div>
+          </figure>
+          <figure class="polaroid polaroid--l is-pending" style="--x:-6%;--y:3%;--r:-5deg">
+            <div class="polaroid__photo"><img data-src="images/foto-02.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo sonriendo en un kayak amarillo en medio del mar"></div>
+          </figure>
+          <figure class="polaroid polaroid--l is-pending" style="--x:4%;--y:-3%;--r:3deg">
+            <div class="polaroid__photo"><img data-src="images/foto-05.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo abrazados en un selfi sobre un acantilado, con el mar al fondo"></div>
+          </figure>
+          <figure class="polaroid polaroid--l is-pending" style="--x:-3%;--y:2%;--r:-2deg">
+            <div class="polaroid__photo"><img data-src="images/foto-09.jpg" width="1280" height="960" decoding="async" alt="Victoria y yo sonriendo de noche en una plaza"></div>
+          </figure>
+        </div>
+
+        <div class="controls">
+          <button type="button" class="btn later" id="memBtn">Otro recuerdo <span class="count" id="memCount">1 / 5</span></button>
+          <p class="line caption later" id="memEnd">Cada foto, un trozo de nosotros.</p>
+          <button type="button" class="btn later" id="next3" data-next>Seguir</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESCENA 5 · SENTIMIENTOS -->
+    <section class="scene" data-scene="4" aria-label="Sentimientos">
+      <div class="scene__inner scene__inner--candles">
+        <figure class="polaroid polaroid--p polaroid--small tilt">
+          <div class="polaroid__photo"><img data-src="images/foto-08.jpg" width="960" height="1280" decoding="async" alt="Victoria y yo abrazados de noche junto a un muro blanco iluminado por pequeñas velas"></div>
+        </figure>
+
+        <div class="lines lines--stack" id="lines4">
+          <p class="line">Lo que importa no es el sitio.</p>
+          <p class="line">Es con quién compartes el momento.</p>
+          <p class="line line--accent">Y contigo, hasta lo más sencillo se vuelve especial.</p>
+        </div>
+
+        <div class="candles" id="candles" role="group" aria-label="Tres luces por encender">
+          <button type="button" class="candle is-next" aria-label="Encender la primera luz">
+            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
+          </button>
+          <button type="button" class="candle" aria-label="Encender la segunda luz" disabled>
+            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
+          </button>
+          <button type="button" class="candle" aria-label="Encender la tercera luz" disabled>
+            <svg viewBox="0 0 28 64" aria-hidden="true"><rect class="candle__wax" x="8" y="28" width="12" height="34" rx="2"/><path class="candle__wick" d="M14 28v-6"/><g class="candle__flame"><path d="M14 3c4.5 6.5 6.5 10.5 6.5 14a6.5 6.5 0 0 1-13 0c0-3.5 2-7.5 6.5-14z"/><path class="inner" d="M14 11c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z"/></g></svg>
+          </button>
+        </div>
+
+        <button type="button" class="btn later" id="next4" data-next>Seguir</button>
+      </div>
+    </section>
+
+    <!-- ESCENA 6 · ANTICIPACIÓN -->
+    <section class="scene" data-scene="5" aria-label="Anticipación">
+      <div class="scene__inner scene__inner--center">
+        <p class="line line--big">Ya casi, Victoria.</p>
+        <p class="line later" id="line5b">Todo esto era para llegar hasta aquí.</p>
+        <button type="button" class="orb later" id="orb" aria-label="Tocar la luz">
+          <span class="orb__ring"></span>
+          <span class="orb__ring orb__ring--2"></span>
+          <span class="orb__core"></span>
+        </button>
+        <span class="orb__hint later" id="orbHint">toca la luz</span>
+      </div>
+    </section>
+
+    <!-- ESCENA 7 · REVELACIÓN + FINAL -->
+    <section class="scene scene--finale" data-scene="6" id="finale" aria-label="Revelación">
+      <div class="hero">
+        <div class="bouquet-wrap">
+          <div class="bouquet-glow" aria-hidden="true"></div>
+          <svg id="bouquet" viewBox="0 0 400 560" role="img" aria-label="Un ramito de violetas atado con un lazo lavanda"></svg>
+        </div>
+
+        <div class="hero__bottom">
+          <!-- Mensaje: un párrafo cada vez, con aparición palabra a palabra -->
+          <div class="message" id="message" aria-live="polite">
+            <p class="msg msg--name script" data-split>Victoria...</p>
+            <p class="msg" data-split>Espero que esta sea la última vez que tenga que enviarte un ramito de violetas sin poder dártelo en persona.</p>
+            <p class="msg" data-split>Porque lo que de verdad deseo es estar ahí, entregártelo yo mismo, verte sonreír y compartir contigo ese pequeño momento.</p>
+            <p class="msg" data-split>Quiero que los próximos ramos pueda dártelos en persona, sin pantallas ni distancias de por medio.</p>
+            <p class="msg" data-split>Estoy deseando construir una vida contigo, compartir nuestro día a día, nuestros sueños, nuestros planes y todos esos pequeños momentos que hacen que la vida merezca la pena.</p>
+            <p class="msg" data-split>Quiero estar ahí para las cosas extraordinarias, pero también para las más sencillas. Para compartir contigo todo lo que todavía nos queda por vivir.</p>
+            <p class="msg" data-split>Hasta que llegue ese momento, aquí tienes tu ramito de violetas.</p>
+            <p class="msg msg--end" data-split>Para ti, hoy y siempre. 💜</p>
+          </div>
+          <p class="tap-hint" id="tapHint" aria-hidden="true">toca para avanzar</p>
+
+          <!-- La canción: aparece cuando termina el mensaje -->
+          <div class="song" id="song">
+            <p class="song__eyebrow">Hay canciones que dicen lo que a uno le cuesta decir</p>
+            <p class="song__title">Un ramito de violetas</p>
+            <p class="song__artist">Manzanita</p>
+            <a class="spotify" id="spotify" href="https://open.spotify.com/track/02PROe7elhI6Cyu6KJONhX" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M5.5 9.2c4.2-1.2 9-.9 13 1.3M6.3 12.5c3.5-1 7.4-.7 10.6 1.1M7.1 15.6c2.8-.8 5.6-.5 8.2.9" stroke="#1a0b30" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+              <span>Escuchar en Spotify</span>
+            </a>
+            <button type="button" class="scroll-cue" id="scrollCue" aria-label="Seguir bajando">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Después del mensaje: fotografías y frase final -->
+      <div class="after" id="after">
+        <figure class="polaroid polaroid--l featured io">
+          <div class="polaroid__photo"><img data-src="images/foto-11.jpg" width="1280" height="960" loading="lazy" decoding="async" alt="Yo entregándole a Victoria un ramito de violetas en un mirador junto al mar, los dos sonriendo"></div>
+          <figcaption class="polaroid__caption script">Así. En persona.</figcaption>
+        </figure>
+
+        <div class="fan" aria-label="Algunos de nuestros recuerdos">
+          <figure class="polaroid polaroid--p fan__a io">
+            <div class="polaroid__photo"><img data-src="images/foto-03.jpg" width="960" height="1280" loading="lazy" decoding="async" alt="Victoria y yo vestidos de blanco, abrazados frente al mar azul"></div>
+          </figure>
+          <figure class="polaroid polaroid--l fan__b io">
+            <div class="polaroid__photo"><img data-src="images/foto-10.jpg" width="1280" height="960" loading="lazy" decoding="async" alt="Victoria sosteniendo un ramo de flores secas en papel kraft, los dos sonriendo"></div>
+          </figure>
+          <figure class="polaroid polaroid--p fan__c io">
+            <div class="polaroid__photo"><img data-src="images/foto-07.jpg" width="720" height="1280" loading="lazy" decoding="async" alt="Victoria y yo abrazados junto a un lago de montaña en otoño"></div>
+          </figure>
+        </div>
+
+        <p class="closing script io">Un ramito de violetas, para ti. 💜</p>
+
+        <a class="spotify spotify--ghost io" href="https://open.spotify.com/track/02PROe7elhI6Cyu6KJONhX" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M5.5 9.2c4.2-1.2 9-.9 13 1.3M6.3 12.5c3.5-1 7.4-.7 10.6 1.1M7.1 15.6c2.8-.8 5.6-.5 8.2.9" stroke="#1a0b30" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+          <span>Escuchar en Spotify</span>
+        </a>
+
+        <button type="button" class="replay" id="replay" aria-label="Volver a empezar" title="Volver a empezar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v4h4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <noscript><p class="noscript">Esta sorpresa necesita JavaScript para poder abrirse. 💜</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
