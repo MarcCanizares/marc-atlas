@@ -261,14 +261,14 @@
       $$('.leaf', svg).forEach((e, i) => later(() => show(e), 600 + i * 140));
       this.glow.classList.add('on');
     },
-    group(g) {
+    group(g, extra = 0) {
       const start = FLOWER_GROUPS.slice(0, g).reduce((a, b) => a + b, 0);
       const count = FLOWER_GROUPS[g] || 0;
       for (let k = start; k < start + count; k++) {
         const f = $(`.flower[data-k="${k}"]`, this.el);
-        later(() => show(f), (k - start) * 600);
+        later(() => show(f), extra + (k - start) * 600);
       }
-      if (g === 6) later(() => show($('.ribbon', this.el)), 900);
+      if (g === 6) later(() => show($('.ribbon', this.el)), extra + 900);
     },
     all() {
       $$('.paper, .stem, .leaf, .flower, .ribbon', this.el).forEach(show);
@@ -279,9 +279,12 @@
   };
 
   /* ---------- 5. Navegación entre escenas ---------- */
+  const LAST = scenes.length - 1;
+  // La estética (CSS data-stage 0-6) avanza de forma progresiva aunque haya menos escenas.
+  const STAGE = [0, 1, 3, 5, 6];
   const progress = $('#progress');
   const backBtn = $('#back');
-  progress.innerHTML = '<i></i>'.repeat(5);
+  progress.innerHTML = '<i></i>'.repeat(3);
   const dots = $$('i', progress);
 
   function updateUI() {
@@ -289,7 +292,7 @@
       d.classList.toggle('on', current > i + 1);
       d.classList.toggle('now', current === i + 1);
     });
-    backBtn.classList.toggle('show', current >= 1 && current <= 5);
+    backBtn.classList.toggle('show', current >= 1 && current <= 3);
   }
 
   function goTo(n, { push = true, force = false } = {}) {
@@ -300,13 +303,13 @@
 
     scenes[current].classList.remove('is-active');
     scenes[current].classList.add('seen');
-    if (current === 6) fx.petals(false);
+    if (current === LAST) fx.petals(false);
 
     current = n;
     const s = scenes[n];
     s.scrollTop = 0;
     s.classList.add('is-active');
-    body.dataset.stage = n;
+    body.dataset.stage = STAGE[n];
     updateUI();
     loadImgs(s); preload(n + 1); preload(n + 2);
     if (push) history.pushState({ s: n }, '');
@@ -341,100 +344,57 @@
     at(() => { show($('.later', s)); finished.add(1); }, 700 + lines.length * 1700, fast);
   }
 
-  // Escena 2 · Conexión: una foto desenfocada que se enfoca al tocarla
+  // Escena 3 · Recuerdos: cada toque revela una foto nueva; al final, dos frases
   function enter2(fast) {
     const s = scenes[2];
-    const focus = $('#focusBtn');
-    const focused = focus.classList.contains('is-focused');
-    at(() => show($('.lead', s)), 500, fast);
-    at(() => show(focus), 1700, fast);
-    if (focused) {
-      show($('#cap2')); show($('#next2'));
-      finished.add(2);
-    }
-  }
-  function focusPhoto() {
-    const focus = $('#focusBtn');
-    if (focus.classList.contains('is-focused')) return;
-    focus.classList.add('is-focused');
-    later(() => show($('#cap2')), 2000);
-    later(() => { show($('#next2')); finished.add(2); }, 3600);
-  }
-
-  // Escena 3 · Recuerdos: cada toque revela una foto nueva
-  function enter3(fast) {
-    const s = scenes[3];
-    const photos = $$('.stack .polaroid', s);
+    const photos = $$('#stack .polaroid');
     const shown = photos.filter((p) => p.classList.contains('is-in')).length;
     at(() => show($('.lead', s)), 500, fast);
 
     if (fast || shown >= photos.length) {
       photos.forEach((p) => p.classList.add('is-in'));
       $('#memBtn').hidden = true;
-      show($('#memEnd')); show($('#next3'));
+      show($('#memA')); show($('#memB')); show($('#next3'));
+      finished.add(2);
       return;
     }
-    if (shown === 0) later(() => { photos[0].classList.add('is-in'); }, 1400);
+    if (shown === 0) later(() => photos[0].classList.add('is-in'), 1400);
     later(() => show($('#memBtn')), 2600);
   }
   function nextMemory() {
+    if (current !== 2) return;
     const photos = $$('#stack .polaroid');
     const shown = photos.filter((p) => p.classList.contains('is-in')).length;
-    if (shown >= photos.length) return;
+    if (shown === 0 || shown >= photos.length) return;
     photos[shown].classList.add('is-in');
     const n = shown + 1;
     $('#memCount').textContent = `${n} / ${photos.length}`;
     if (n >= photos.length) {
       $('#memBtn').disabled = true;
-      later(() => {
-        $('#memBtn').hidden = true;
-        show($('#memEnd'));
-        later(() => { show($('#next3')); finished.add(3); }, 1400);
-      }, 1500);
+      later(() => { $('#memBtn').hidden = true; show($('#memA')); }, 1500);
+      later(() => show($('#memB')), 3600);
+      later(() => { show($('#next3')); finished.add(2); }, 5400);
     }
   }
 
-  // Escena 4 · Sentimientos: cada vela encendida revela una frase
-  function enter4(fast) {
-    const s = scenes[4];
-    const lines = $$('#lines4 .line');
-    const candles = $$('.candle', s);
-    at(() => show($('.tilt', s)), 300, fast);
-    at(() => show($('#candles')), 1300, fast);
-    if (fast) {
-      candles.forEach((c) => { c.classList.add('lit'); c.classList.remove('is-next'); c.disabled = true; });
-      lines.forEach(show); show($('#next4'));
-    }
-  }
-  function lightCandle(i) {
-    const candles = $$('#candles .candle');
-    const c = candles[i];
-    if (!c || c.disabled || c.classList.contains('lit')) return;
-    c.classList.add('lit'); c.classList.remove('is-next'); c.disabled = true;
-    show($$('#lines4 .line')[i]);
-    const nx = candles[i + 1];
-    if (nx) { nx.disabled = false; nx.classList.add('is-next'); }
-    else later(() => { show($('#next4')); finished.add(4); }, 2200);
-  }
-
-  // Escena 5 · Anticipación: una última luz por tocar
-  function enter5(fast) {
-    const s = scenes[5];
+  // Escena 4 · Anticipación: una última luz por tocar
+  function enter3(fast) {
+    const s = scenes[3];
     const orb = $('#orb');
     orb.classList.remove('is-hit');
     $('#flash').classList.remove('on');
     at(() => show($('.line--big', s)), 400, fast);
-    at(() => show($('#line5b')), 2500, fast);
-    at(() => { show(orb); show($('#orbHint')); finished.add(5); }, 4300, fast);
+    at(() => show($('#line5b')), 2800, fast);
+    at(() => { show(orb); show($('#orbHint')); finished.add(3); }, 4600, fast);
   }
   function touchOrb() {
     const orb = $('#orb');
-    if (current !== 5 || orb.classList.contains('is-hit')) return;
+    if (current !== 3 || orb.classList.contains('is-hit')) return;
     orb.classList.add('is-hit');
     const flash = $('#flash');
     // Estos timeouts son independientes de `timers`, que goTo() limpia.
     setTimeout(() => flash.classList.add('on'), T(350));
-    setTimeout(() => goTo(6, { force: true }), T(1100));
+    setTimeout(() => goTo(LAST, { force: true }), T(1100));
     setTimeout(() => flash.classList.remove('on'), T(1800));
   }
 
@@ -443,6 +403,9 @@
   const paras = $$('.msg');
   const song = $('#song');
   const tapHint = $('#tapHint');
+  const delivery = $('#delivery');
+  // Párrafos en los que se habla de entregar el ramo en persona: se muestra la foto de la entrega.
+  const DELIVERY_PARAS = [2, 3];
   const msg = { i: -1, phase: 'idle', doneTimer: 0, hintTimer: 0 };
 
   function splitWords() {
@@ -466,10 +429,22 @@
     const p = paras[i];
     p.classList.remove('is-off', 'is-done');
     p.classList.add('is-on');
-    if (i <= 6) bouquet.group(i);
+    const inDelivery = DELIVERY_PARAS.includes(i);
+    setDelivery(inDelivery);
+    // Mientras se ve la foto, el ramo espera; al volver, las flores pendientes se añaden una tras otra.
+    if (!inDelivery) {
+      const lastDelivery = DELIVERY_PARAS[DELIVERY_PARAS.length - 1];
+      const pending = i === lastDelivery + 1 ? DELIVERY_PARAS.concat(i) : [i];
+      pending.filter((g) => g <= 6).forEach((g, k) => bouquet.group(g, k * 1300));
+    }
     if (i === paras.length - 1) { bouquet.final(); fx.petals(true); }
     const words = $$('.w', p).length;
     msg.doneTimer = setTimeout(completePara, T((words - 1) * STEP + 1300));
+  }
+
+  function setDelivery(on) {
+    delivery.classList.toggle('on', on);
+    bouquet.el.classList.toggle('dim', on);
   }
 
   function completePara() {
@@ -483,7 +458,7 @@
   }
 
   function advance() {
-    if (current !== 6) return;
+    if (current !== LAST) return;
     if (msg.phase === 'writing') { completePara(); return; }
     if (msg.phase !== 'ready') return;
     clearTimeout(msg.hintTimer);
@@ -501,11 +476,12 @@
     msg.phase = 'song';
     song.classList.add('is-on');
     finale.classList.add('is-open');
-    finished.add(6);
+    finished.add(LAST);
   }
 
-  function enter6(fast) {
+  function enter4(fast) {
     fx.petals(true);
+    setDelivery(false);
     if (fast) {
       // Al volver a la escena final, se muestra el resultado completo.
       bouquet.all();
@@ -524,7 +500,7 @@
     later(() => showPara(0), 3200);
   }
 
-  const ENTER = [enter0, enter1, enter2, enter3, enter4, enter5, enter6];
+  const ENTER = [enter0, enter1, enter2, enter3, enter4];
 
   /* ---------- 8. Arranque ---------- */
   function init() {
@@ -535,9 +511,8 @@
     fx.start();
 
     // Interacciones
-    $('#focusBtn').addEventListener('click', focusPhoto);
     $('#memBtn').addEventListener('click', nextMemory);
-    $$('#candles .candle').forEach((c, i) => c.addEventListener('click', () => lightCandle(i)));
+    $('#stack').addEventListener('click', nextMemory);
     $('#orb').addEventListener('click', touchOrb);
 
     // Mensaje final: tocar en cualquier punto avanza (los enlaces y botones no)
@@ -545,7 +520,7 @@
       if (!e.target.closest('a, button')) advance();
     });
     document.addEventListener('keydown', (e) => {
-      if (current !== 6 || e.target.closest('a, button')) return;
+      if (current !== LAST || e.target.closest('a, button')) return;
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advance(); }
     });
 
@@ -567,7 +542,7 @@
     ENTER[0](false);
 
     // Precarga progresiva del resto de fotos, sin bloquear la primera pantalla
-    const warm = () => [2, 3, 4, 5, 6].forEach((n, i) => setTimeout(() => preload(n), 800 + i * 900));
+    const warm = () => [2, 3, 4].forEach((n, i) => setTimeout(() => preload(n), 800 + i * 900));
     if (document.readyState === 'complete') warm(); else window.addEventListener('load', warm, { once: true });
   }
 
